@@ -152,8 +152,11 @@ filter ::
   (a -> Bool)
   -> List a
   -> List a
-filter =
-  error "todo: Course.List#filter"
+filter _ Nil = Nil
+filter f (h :. t) =
+  if f h
+     then h :. filter f t
+     else filter f t
 
 -- | Append two lists to a new list.
 --
@@ -171,8 +174,10 @@ filter =
   List a
   -> List a
   -> List a
-(++) =
-  error "todo: Course.List#(++)"
+(++) Nil Nil = Nil
+(++) l Nil = l
+(++) Nil l = l
+(++) (h1 :. t1) (h2 :. t2) = (h1 :. h2) :. (t1 ++ t2)
 
 infixr 5 ++
 
